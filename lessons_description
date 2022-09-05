@@ -1,6 +1,11 @@
+#############		Lesson1			##############################
+#	0)Create S3 bucket for Terraform state file.
+#	1)Send tfstate file of 3S bucket to this backet
+##################################################################
+
 #############		Lesson2			##############################
 #	0)Create VPC
-#	1)Create 2 sudnet in different zones
+#	1)Create 2 subnet in different zones
 #	2)Create security groups
 #	3)Create EC2 instance with external access (jenkins + ssh)
 #	4)Install jenkins
