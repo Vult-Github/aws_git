@@ -1,0 +1,9 @@
+#############		Lesson2			##############################
+#	0)Create VPC
+#	1)Create 2 sudnet in different zones
+#	2)Create security groups
+#	3)Create EC2 instance with external access (jenkins + ssh)
+#	4)Install jenkins
+#	5)Get ip after lesson from output
+##################################################################
+
