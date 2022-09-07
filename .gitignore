@@ -1,2 +1,4 @@
 .terraform
 /lesson*/.terraform
+*.tfstate
+/lesson*/*.tfstate
