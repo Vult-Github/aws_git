@@ -1,4 +1,5 @@
 #############		Lesson1			##############################
+#					Canceled 
 #	0)Create S3 bucket for Terraform state file.
 #	1)Send tfstate file of 3S bucket to this backet
 ##################################################################
