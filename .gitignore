@@ -2,3 +2,4 @@
 /lesson*/.terraform
 *.tfstate
 /lesson*/*.tfstate
+/lesson*/.*.lock.*
