@@ -6,6 +6,12 @@ terraform {
       version = "~> 4.0"
     }
   }
+  backend "s3" {
+    bucket  = "vult-lessons-core-s3"
+    key     = "lesson1/lesson1.tfstate"
+    region  = "us-east-1"
+    profile = "lessonvult"
+  }
 }
 
 provider "aws" {
