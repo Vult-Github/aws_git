@@ -8,6 +8,7 @@ resource "aws_route_table" "lesson2_vpcsubAroutetable" {
     Name = "lesson2 route for subA"
     Type = "Route table subnet"
   }
+  depends_on = [aws_internet_gateway_attachment.lesson2gwattach]
 }
 resource "aws_route_table_association" "lesson2routetablesubAAssoc" {
   subnet_id      = aws_subnet.lesson2_subA.id
