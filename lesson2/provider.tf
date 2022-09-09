@@ -15,6 +15,6 @@ terraform {
 }
 
 provider "aws" {
-  profile = "lessonvult"
-  region  = "us-east-1"
+  profile = var.profile
+  region  = var.region
 }

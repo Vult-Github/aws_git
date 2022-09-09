@@ -1,11 +1,12 @@
+############  EC2 for Jenkins ###############
 resource "aws_instance" "lesson2_ec2_jenkins" {
   ami           = "ami-09a41e26df464c548"
-  instance_type = "t2.micro"
+  instance_type = var.ec2_instance_type
   subnet_id     = aws_subnet.lesson2_subA.id
   vpc_security_group_ids = [
     aws_security_group.sec_group_subA.id
   ]
-  key_name                    = "Test_vult_aws"
+  key_name                    = var.ec2_access_key
   associate_public_ip_address = true
   root_block_device {
     delete_on_termination = true
@@ -25,7 +26,8 @@ sudo apt-get install -y openjdk-11-jre-headless
 sudo apt-get  -y install jenkins
 VULT
   tags = {
-    Name = "lesson2_ec2_jenkins"
-    Type = "EC2"
+    Name        = "lesson2_ec2_jenkins"
+    Environment = var.environment_type
+    Project     = var.projectname
   }
 }
