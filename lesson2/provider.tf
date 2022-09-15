@@ -8,7 +8,7 @@ terraform {
   }
   backend "s3" {
     bucket  = "vult-lessons-core-s3"
-    key     = "lesson1/lesson1.tfstate"
+    key     = "Lesson2/Lesson2.tfstate"
     region  = "us-east-1"
     profile = "lessonvult"
   }
