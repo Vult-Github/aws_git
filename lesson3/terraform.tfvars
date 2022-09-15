@@ -1,0 +1,12 @@
+#provider
+region               = "us-east-1"
+profile              = "lessonvult"
+environment_type     = "Test"
+projectname          = "Lesson"
+ec2_instance_type    = "t2.micro"
+lesson_number        = "3"
+vpc_cidr             = "172.22.0.0/16"
+subnetA_cidr         = "172.22.12.0/26"
+subnetB_cidr         = "172.22.22.0/26"
+subnetA_availib_zone = "us-east-1a"
+subnetB_availib_zone = "us-east-1b"
