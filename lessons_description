@@ -1,30 +1,3 @@
-#############		Lesson1			##############################
-#					Canceled
-#	0)Create S3 bucket for Terraform state file.
-#	1)Send tfstate file of 3S bucket to this backet
-##################################################################
-
-#############		Lesson2			##############################
-#         completed
-#	0)Create VPC
-#	1)Create 2 subnet in different zones
-#	2)Create security groups
-#	3)Create EC2 instance with external access (jenkins + ssh)
-#	4)Install jenkins
-#	5)Get ip after lesson from output
-# 6)Use variables
-##################################################################
-
-#############		Lesson3			##############################
-#         completed
-#	0)Create AMI from jenkins VM
-# 1)Balancer for Jenkins VM ( which redirect from 80 port to 8080)
-##################################################################
-
-#############		Lesson4			##############################
-#         completed
-#	0)Add HTTPS to Load balancer from Lesson3 and cut http connection.
-##################################################################
 
 #############		Lesson5			##############################
 #         In progress
