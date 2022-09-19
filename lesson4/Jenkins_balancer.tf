@@ -10,7 +10,6 @@ resource "aws_security_group" "sec_group_subnet_jenkins" {
     protocol    = "TCP"
     cidr_blocks = ["0.0.0.0/0"]
   }
-
   egress {
     description = "All traffic"
     from_port   = 0
@@ -39,7 +38,13 @@ resource "aws_security_group" "sec_group_loadbalancer_jenkins" {
     protocol    = "TCP"
     cidr_blocks = ["0.0.0.0/0"]
   }
-
+  ingress {
+    description = "Jenkins"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "TCP"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
   egress {
     description = "All traffic"
     from_port   = 0
@@ -89,7 +94,7 @@ resource "aws_autoscaling_group" "Autoscaling_gr_Jenkins" {
   name                      = "Autoscale-Conf-Jenkins${var.projectname}${var.lesson_number}-${var.environment_type}"
   launch_configuration      = aws_launch_configuration.Launch_config_Jenkins.name
   vpc_zone_identifier       = [aws_subnet.subnetA.id, aws_subnet.subnetB.id]
-  desired_capacity          = 2
+  desired_capacity          = 1
   min_size                  = 1
   max_size                  = 3
   health_check_grace_period = 300
@@ -139,7 +144,7 @@ resource "aws_lb_target_group" "Target_group_jenkins" {
 
 ############  Load balancer ###############
 resource "aws_lb" "Load_balancer_jenkins" {
-  name               = "Loadbalan-Jenkins-${var.projectname}${var.lesson_number}-${var.environment_type}"
+  name               = "Jenkins-${var.projectname}${var.lesson_number}-${var.environment_type}"
   load_balancer_type = "application"
   security_groups    = [aws_security_group.sec_group_loadbalancer_jenkins.id]
   subnets            = [aws_subnet.subnetA.id, aws_subnet.subnetB.id]
@@ -154,14 +159,53 @@ resource "aws_lb" "Load_balancer_jenkins" {
 }
 
 
-resource "aws_lb_listener" "Listener_jenkins" {
+
+resource "aws_lb_listener" "Listener_jenkins_redirect" {
   load_balancer_arn = aws_lb.Load_balancer_jenkins.arn
   port              = "80"
   protocol          = "HTTP"
+  default_action {
+    type = "redirect"
+
+    redirect {
+      port        = "443"
+      protocol    = "HTTPS"
+      status_code = "HTTP_301"
+    }
+  }
+}
+
+
+
+resource "aws_lb_listener" "front_end_https" {
+  load_balancer_arn = aws_lb.Load_balancer_jenkins.arn
+  port              = "443"
+  protocol          = "HTTPS"
+  ssl_policy        = "ELBSecurityPolicy-2016-08"
+  certificate_arn   = aws_acm_certificate.cert_for_jenkins_balancer.arn
 
   default_action {
     type             = "forward"
     target_group_arn = aws_lb_target_group.Target_group_jenkins.arn
   }
+}
 
+
+
+############  Certificate ###############
+resource "aws_acm_certificate" "cert_for_jenkins_balancer" {
+  private_key      = var.private_key_pem
+  certificate_body = var.cert_pem
+  tags = {
+    Name        = "Certificate-Jenkins-${var.projectname}${var.lesson_number}-${var.environment_type}"
+    Type        = "Certificate"
+    Purpose     = "For Jenkins"
+    Environment = var.environment_type
+    Project     = "${var.projectname}${var.lesson_number}"
+    Deployner   = "Terraform"
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
