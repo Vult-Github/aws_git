@@ -61,13 +61,3 @@ variable "subnetB_availib_zone" {
   type        = string
   description = "Availability zone for subnet B"
 }
-
-variable "private_key_pem" {
-  type        = string
-  description = "Availability zone for subnet B"
-}
-
-variable "cert_pem" {
-  type        = string
-  description = "Availability zone for subnet B"
-}

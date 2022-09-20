@@ -10,7 +10,7 @@ resource "aws_internet_gateway" "gw1" {
   }
 }
 
-resource "aws_internet_gateway_attachment" "gw1attach" {
+resource "aws_internet_gateway_attachment" "gw_attach" {
   internet_gateway_id = aws_internet_gateway.gw1.id
   vpc_id              = aws_vpc.global_vpc.id
 }
@@ -48,6 +48,7 @@ resource "aws_subnet" "subnetA" {
   }
 }
 
+
 resource "aws_subnet" "subnetB" {
   vpc_id            = aws_vpc.global_vpc.id
   cidr_block        = var.subnetB_cidr
@@ -80,13 +81,5 @@ resource "aws_route_table" "routetable_sub_public" {
     Project     = "${var.projectname}${var.lesson_number}"
     Deployner   = "Terraform"
   }
-  depends_on = [aws_internet_gateway_attachment.gw1attach]
-}
-resource "aws_route_table_association" "routetable_subA_attach" {
-  subnet_id      = aws_subnet.subnetA.id
-  route_table_id = aws_route_table.routetable_sub_public.id
-}
-resource "aws_route_table_association" "routetable_subB_attach" {
-  subnet_id      = aws_subnet.subnetB.id
-  route_table_id = aws_route_table.routetable_sub_public.id
+  depends_on = [aws_internet_gateway_attachment.gw_attach]
 }
