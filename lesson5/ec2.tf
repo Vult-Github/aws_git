@@ -10,6 +10,7 @@ data "aws_ami" "EC2_ami" {
 
 
 resource "aws_instance" "ec2_jenkins_subA" {
+  count                       = var.environment_type == "Prod" ? 2 : 1
   ami                         = data.aws_ami.EC2_ami.id
   instance_type               = var.ec2_instance_type
   subnet_id                   = aws_subnet.subnetA.id
@@ -29,7 +30,7 @@ resource "aws_instance" "ec2_jenkins_subA" {
 }
 
 resource "aws_instance" "ec2_jenkins_subB" {
-  count                       = var.environment_type == "Prod" ? 1 : 0
+  count                       = var.environment_type == "Prod" ? 2 : 1
   ami                         = data.aws_ami.EC2_ami.id
   instance_type               = var.ec2_instance_type
   subnet_id                   = aws_subnet.subnetB.id

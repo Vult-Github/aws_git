@@ -1,5 +1,14 @@
 
 #############		Lesson5			##############################
-#         In progress
-#	0)Add namespaces DEV and PROD for EC2 on different availability zones
+#         completed
+#	0)Add workspace DEV and PROD for EC2 on different availability zones (separate tfvars?)
+# vpc different
+# 2 subnets
+# ec2 in subnets ( for Prod 2 count for every subnets, for Dev 1 count for every subnets)
+##################################################################
+#
+#        instruction
+# Use workspace "default" and "terraform plan/apply" for Prod
+# Use workspace "dev" and "terraform plan/apply -var-file 'dev.tfvars'" for Dev
+#
 ##################################################################
