@@ -49,10 +49,26 @@ resource "aws_subnet" "subnet_bastion" {
 }
 
 
-resource "aws_subnet" "subnet_DB" {
+resource "aws_subnet" "subnet_DB_A" {
   vpc_id            = aws_vpc.global_vpc.id
-  cidr_block        = var.subnet_private_cidr
-  availability_zone = var.subnet_availib_zone
+  cidr_block        = var.subnet_privateA_cidr
+  availability_zone = var.subnet_privateA_zone
+
+  tags = {
+    Name        = "SubnetB-${var.projectname}${var.lesson_number}-${var.environment_type}"
+    Type        = "Subnet private"
+    Description = "For DB VMs"
+    Environment = var.environment_type
+    Project     = "${var.projectname}${var.lesson_number}"
+    Deployner   = "Terraform"
+  }
+}
+
+
+resource "aws_subnet" "subnet_DB_B" {
+  vpc_id            = aws_vpc.global_vpc.id
+  cidr_block        = var.subnet_privateB_cidr
+  availability_zone = var.subnet_privateB_zone
 
   tags = {
     Name        = "SubnetB-${var.projectname}${var.lesson_number}-${var.environment_type}"

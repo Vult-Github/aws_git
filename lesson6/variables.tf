@@ -42,22 +42,47 @@ variable "vpc_cidr" {
   description = "CIDR for VPC"
 }
 
-variable "subnetA_cidr" {
+variable "subnet_public_cidr" {
   type        = string
-  description = "CIDR for subnet A"
+  description = "CIDR for subnet public"
 }
 
-variable "subnetB_cidr" {
+variable "subnet_privateA_cidr" {
   type        = string
-  description = "CIDR for subnet B"
+  description = "CIDR for subnet A private"
 }
 
-variable "subnetA_availib_zone" {
+variable "subnet_privateB_cidr" {
   type        = string
-  description = "Availability zone for subnet A"
+  description = "CIDR for subnet B private"
 }
 
-variable "subnetB_availib_zone" {
+variable "subnet_availib_zone" {
   type        = string
-  description = "Availability zone for subnet B"
+  description = "Availability zone for subnets"
+}
+
+variable "subnet_privateA_zone" {
+  type        = string
+  description = "Availability zone for DB A"
+}
+
+variable "subnet_privateB_zone" {
+  type        = string
+  description = "Availability zone for DB B"
+}
+
+variable "db_admin_name" {
+  type        = string
+  description = "User for mariaDB"
+}
+
+variable "db_admin_pass" {
+  type        = string
+  description = "Pass for mariaDB"
+}
+
+variable "db_port" {
+  type        = string
+  description = "Port for mariaDB"
 }
