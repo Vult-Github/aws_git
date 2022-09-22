@@ -1,3 +1,4 @@
+/*
 ############  Internet gateway ###############
 resource "aws_internet_gateway" "gw1" {
   tags = {
@@ -103,3 +104,4 @@ resource "aws_route_table_association" "routetable_subnet_bastion_attach" {
   subnet_id      = aws_subnet.subnet_bastion.id
   route_table_id = aws_route_table.routetable_sub_public.id
 }
+*/
