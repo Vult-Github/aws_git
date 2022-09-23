@@ -2,7 +2,7 @@
 region               = "us-east-1"
 profile              = "lessonvult"
 environment_type     = "Prod"
-projectname          = "Lesson"
+projectname          = "lesson"
 ec2_instance_type    = "t2.micro"
 lesson_number        = "6"
 vpc_cidr             = "172.22.0.0/16"
