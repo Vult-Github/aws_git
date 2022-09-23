@@ -92,9 +92,10 @@ resource "aws_s3_bucket_website_configuration" "s3website_conf" {
 
 
 resource "aws_s3_object" "upload_website_files" {
-  for_each = fileset("./website/", "*")
-  bucket   = aws_s3_bucket.s3website.bucket
-  key      = each.value
-  source   = "./website/${each.value}"
-  etag     = filemd5("./website/${each.value}")
+  for_each     = fileset("./website/", "*")
+  bucket       = aws_s3_bucket.s3website.bucket
+  key          = each.value
+  source       = "./website/${each.value}"
+  etag         = filemd5("./website/${each.value}")
+  content_type = "text/html"
 }

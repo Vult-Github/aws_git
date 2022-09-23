@@ -1,8 +1,13 @@
 #############		Lesson6		##############################
-#         In progress
+#         Completed
 #	0) create s3 bucket with static website (2 pages index and error)
 # 1) create DB machine in private subnet
 # 2) create EC2 bastion for DB's machine access
 # 3) connect to DB from bastion
+###################################################
+#         DB and Bastion
+# For access to DB from bastion use command "prodmaria"
 #
+#         Website
+# Website has 3 pages: index.html, error.html, page1.html
 ##################################################################

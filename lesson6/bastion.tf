@@ -1,4 +1,3 @@
-/*
 ############  EC2 for Jenkins ###############
 data "aws_ami" "EC2_ami" {
   owners      = ["self"]
@@ -61,4 +60,3 @@ resource "aws_security_group" "sec_group_ec2_bastion" {
     Project     = "${var.projectname}${var.lesson_number}"
   }
 }
-*/

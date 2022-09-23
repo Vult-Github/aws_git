@@ -1,4 +1,3 @@
-/*
 ############  RDS ###############
 resource "aws_db_subnet_group" "Maria_DB" {
   name       = "mariadb_subgroup"
@@ -72,4 +71,3 @@ resource "aws_security_group" "sec_group_mariadb" {
     Project     = "${var.projectname}${var.lesson_number}"
   }
 }
-*/
