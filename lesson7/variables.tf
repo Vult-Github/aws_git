@@ -47,42 +47,17 @@ variable "subnet_public_cidr" {
   description = "CIDR for subnet public"
 }
 
-variable "subnet_privateA_cidr" {
-  type        = string
-  description = "CIDR for subnet A private"
-}
-
-variable "subnet_privateB_cidr" {
-  type        = string
-  description = "CIDR for subnet B private"
-}
-
 variable "subnet_availib_zone" {
   type        = string
   description = "Availability zone for subnets"
 }
 
-variable "subnet_privateA_zone" {
+variable "ec2_inner_key" {
   type        = string
-  description = "Availability zone for DB A"
+  description = "Key for access to CA"
 }
 
-variable "subnet_privateB_zone" {
+variable "ec2_ca_ip" {
   type        = string
-  description = "Availability zone for DB B"
-}
-
-variable "db_admin_name" {
-  type        = string
-  description = "User for mariaDB"
-}
-
-variable "db_admin_pass" {
-  type        = string
-  description = "Pass for mariaDB"
-}
-
-variable "db_port" {
-  type        = string
-  description = "Port for mariaDB"
+  description = "ip of CA VM"
 }
