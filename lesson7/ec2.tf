@@ -14,6 +14,7 @@ resource "aws_instance" "ec2_bastion" {
   subnet_id                   = aws_subnet.subnet.id
   vpc_security_group_ids      = [aws_security_group.sec_group_ec2_bastion.id]
   key_name                    = var.ec2_access_key
+  private_ip                  = var.ec2_bastion_ip
   associate_public_ip_address = true
   lifecycle {
     create_before_destroy = false
@@ -23,6 +24,10 @@ resource "aws_instance" "ec2_bastion" {
     volume_size           = 10
     volume_type           = "gp2"
   }
+  user_data = <<VULT
+#!/bin/bash
+ssh-keygen -f "/home/admin/.ssh/known_hosts" -R "172.22.12.42"
+VULT
   tags = {
     Name        = "ec2_bastion-${var.projectname}${var.lesson_number}-${var.environment_type}"
     Environment = var.environment_type
@@ -47,7 +52,7 @@ resource "aws_instance" "ec2_centre" {
   subnet_id                   = aws_subnet.subnet.id
   vpc_security_group_ids      = [aws_security_group.sec_group_ec2_centre.id]
   key_name                    = var.ec2_inner_key
-  associate_public_ip_address = true
+  associate_public_ip_address = false
   private_ip                  = var.ec2_ca_ip
   lifecycle {
     create_before_destroy = false
@@ -57,12 +62,6 @@ resource "aws_instance" "ec2_centre" {
     volume_size           = 10
     volume_type           = "gp2"
   }
-  /*
-  user_data = <<VULT
-#!/bin/bash
-ssh-keygen -f "/home/admin/.ssh/known_hosts" -R "172.22.12.42"
-VULT
-*/
   tags = {
     Name        = "ec2_centre-${var.projectname}${var.lesson_number}-${var.environment_type}"
     Environment = var.environment_type
@@ -78,12 +77,23 @@ resource "aws_security_group" "sec_group_ec2_bastion" {
   name        = "Secgro_EC2_bastion"
   description = "Bastion"
   vpc_id      = aws_vpc.global_vpc.id
+  /*
+  ### For restore function
   ingress {
     description = "SSH"
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
+  }
+*/
+
+  ingress {
+    description = "SSH"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["${var.subnet_public_cidr}"]
   }
   ingress {
     description = "openVPN"
@@ -92,8 +102,6 @@ resource "aws_security_group" "sec_group_ec2_bastion" {
     protocol    = "udp"
     cidr_blocks = ["0.0.0.0/0"]
   }
-
-
   egress {
     description = "All traffic"
     from_port   = 0
@@ -107,6 +115,7 @@ resource "aws_security_group" "sec_group_ec2_bastion" {
     Project     = "${var.projectname}${var.lesson_number}"
   }
 }
+
 
 resource "aws_security_group" "sec_group_ec2_centre" {
   name        = "Secgro_EC2_centre"

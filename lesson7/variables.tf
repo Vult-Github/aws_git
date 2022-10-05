@@ -61,3 +61,8 @@ variable "ec2_ca_ip" {
   type        = string
   description = "ip of CA VM"
 }
+
+variable "ec2_bastion_ip" {
+  type        = string
+  description = "ip of bastion VM"
+}
